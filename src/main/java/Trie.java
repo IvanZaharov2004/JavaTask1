@@ -1,8 +1,70 @@
 import java.util.*;
 
-class Node{
-    char ch;
+class Trie {
+    private final Node root;
+
+    public Trie() {
+        root = new Node(' ');
+    }
+    // Добавление слова
+    public void insert(String str) {
+        if (search(str))
+            return;
+        Node current = root;
+        for (char c : str.toCharArray()) {
+            Node children = current.Sub(c);
+            if (children != null)
+                current = children;
+            else {
+                current.listOfChild.add(new Node(c));
+                current = current.Sub(c);
+            }
+            current.count++;
+        }
+        current.isEnd = true;
+    }
+    // Поиск слова
+    public boolean search(String str) {
+        Node current = root;
+        for (char c : str.toCharArray()) {
+            if (current.Sub(c) == null)
+                return false;
+            else
+                current = current.Sub(c);
+        }
+        return current.isEnd;
+    }
+    // Удаление слова
+    public void remove(String str) {
+       Node current = root;
+       for (char c : str.toCharArray()) {
+           Node children = current.Sub(c);
+           if (children.count == 1) {
+               current.listOfChild.remove(children);
+               return;
+           }   else {
+               current = children;
+               children.count--;
+           }
+       }
+       current.isEnd = false;
+    }
+    // Начинается ли дерево с данного знака
+    public boolean startsWith(String str) {
+        Node current = root;
+        for (char c : str.toCharArray()) {
+            if (current.Sub(c) == null)
+                return false;
+            else
+                current = current.Sub(c);
+        }
+        return true;
+    }
+}
+
+class Node {
     boolean isEnd;
+    char ch;
     int count;
     LinkedList<Node> listOfChild;
 
@@ -18,63 +80,5 @@ class Node{
                 if(children.ch == letter)
                     return children;
         return null;
-    }
-}
-
-class Trie {
-    private final Node root;
-
-    public Trie() {
-        root = new Node(' ');
-    }
-    public void insert(String str) {
-        if (search(str))
-            return;
-        Node current = root;
-        for (char c : str.toCharArray()) {
-            Node child = current.Sub(c);
-            if (child != null)
-                current = child;
-            else {
-                current.listOfChild.add(new Node(c));
-                current = current.Sub(c);
-            }
-            current.count++;
-        }
-        current.isEnd = true;
-    }
-    public boolean search(String str) {
-        Node current = root;
-        for (char c : str.toCharArray()) {
-            if (current.Sub(c) == null)
-                return false;
-            else
-                current = current.Sub(c);
-        }
-        return current.isEnd;
-    }
-    public void remove(String str) {
-       Node current = root;
-       for (char c : str.toCharArray()) {
-           Node child = current.Sub(c);
-           if (child.count == 1) {
-               current.listOfChild.remove(child);
-               return;
-           }    else {
-               child.count--;
-               current = child;
-           }
-       }
-       current.isEnd = false;
-    }
-    public boolean startsWith(String str) {
-        Node current = root;
-        for (char c : str.toCharArray()) {
-            if (current.Sub(c) == null)
-                return false;
-            else
-                current = current.Sub(c);
-        }
-        return true;
     }
 }

@@ -19,7 +19,7 @@ public class TrieTest {
     }
 
     @Test
-    public void testInsertSearch() {
+    public void testSearch() {
         assertTrue(trie.search("You"));
         assertTrue(trie.search("are"));
         assertTrue(trie.search("brilliant"));
@@ -46,7 +46,7 @@ public class TrieTest {
 
     @Test
     public void testPrefix() {
-        assertTrue(trie.startsWith("Y"));
+        assertTrue(trie.startsWith("You"));
         assertTrue(trie.startsWith("pro"));
         assertTrue(trie.startsWith("program"));
         assertTrue(trie.startsWith("stud"));
