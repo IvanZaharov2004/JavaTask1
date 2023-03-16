@@ -19,6 +19,7 @@ class Trie {
                 current.listOfChild.add(new Node(c));
                 current = current.Sub(c);
             }
+            current.count++;
         }
         current.isEnd = true;
     }
@@ -70,6 +71,7 @@ class Node {
         listOfChild = new LinkedList<>();
         ch = letter;
         isEnd = false;
+        count = 0;
     }
     public Node Sub(char letter) {
         if (listOfChild != null)
