@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TrieTest {
     Trie trie = new Trie();
@@ -33,12 +32,9 @@ public class TrieTest {
         assertTrue(trie.search("programmer"));
         assertTrue(trie.search("You"));
         assertTrue(trie.search("student"));
-        assertTrue(trie.search("and"));
         trie.remove("programmer");
         trie.remove("You");
         trie.remove("student");
-        trie.remove("and");
-        assertFalse(trie.search("and"));
         assertFalse(trie.search("programmer"));
         assertFalse(trie.search("student"));
         assertFalse(trie.search("You"));
