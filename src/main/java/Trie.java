@@ -44,6 +44,7 @@ class Trie {
                return;
            }   else {
                current = children;
+               children.count--;
            }
        }
        current.isEnd = false;
